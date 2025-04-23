@@ -1,5 +1,3 @@
-import Allergen.Strawberries
-
 enum Allergen(val score: Int):
    case Eggs extends Allergen(1)
    case Peanuts extends Allergen(2)

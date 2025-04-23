@@ -10,7 +10,7 @@ enum Allergen(val score: Int):
 
 object Allergies:
    def list(n: Int): List[Allergen] =
-      Allergen.values.zip(n.toBinaryString.reverse).filter(_._2 == '1').map(_._1).toList
+      Allergen.values.filter(a => (n & a.score) != 0).toList
 
    def allergicTo(a: Allergen, n: Int): Boolean =
-      Allergen.values.map(_.score).contains(n - a.score) || n == a.score && n != 0
+      (n & a.score) != 0

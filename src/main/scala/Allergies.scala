@@ -1,16 +1,5 @@
-enum Allergen(val score: Int):
-   case Eggs extends Allergen(1)
-   case Peanuts extends Allergen(2)
-   case Shellfish extends Allergen(4)
-   case Strawberries extends Allergen(8)
-   case Tomatoes extends Allergen(16)
-   case Chocolate extends Allergen(32)
-   case Pollen extends Allergen(64)
-   case Cats extends Allergen(128)
-
+enum Allergen:
+   case Eggs, Peanuts, Shellfish, Strawberries, Tomatoes, Chocolate, Pollen, Cats
 object Allergies:
-   def list(n: Int): List[Allergen] =
-      Allergen.values.filter(a => (n & a.score) != 0).toList
-
-   def allergicTo(a: Allergen, n: Int): Boolean =
-      (n & a.score) != 0
+   def allergicTo(a: Allergen, n: Int): Boolean = (1 << a.ordinal & n) > 0
+   def list(n: Int): List[Allergen] = Allergen.values.filter(allergicTo(_, n)).toList
